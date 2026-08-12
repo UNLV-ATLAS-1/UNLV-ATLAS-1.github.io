@@ -48,8 +48,14 @@
 * { box-sizing: border-box; }
 
 html {
-  scroll-behavior: smooth;
   overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Disable smooth scroll on Safari/WebKit (incl. all iOS browsers,
+   which are required to use WebKit) due to anchor-jump bug */
+@supports (-webkit-touch-callout: none) {
+  html { scroll-behavior: auto; }
 }
 
 section[id] { scroll-margin-top: 100px; }
