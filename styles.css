@@ -951,6 +951,13 @@ footer {
   display: block;
 }
 
+/* PROVESKit.png has extra whitespace baked into the source photo,
+   making the cube look smaller than the tightly-cropped cube1/hab images.
+   Scale it up so the cube fills the frame like the others. */
+.img-fill-zoom {
+  transform: scale(1.45);
+}
+
 .stat-value {
   color: var(--crimson);
   font-size: 2rem;
