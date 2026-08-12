@@ -49,7 +49,7 @@
 
 html { scroll-behavior: smooth; }
 
-section[id] { scroll-margin-top: 72px; }
+section[id] { scroll-margin-top: 100px; }
 
 body {
   margin: 0;
@@ -967,9 +967,9 @@ footer {
 .mt-lg { margin-top: 1.4rem; }
 .mb-md { margin-bottom: 1.5rem; }
 
-/* ============================================================
+/* 
    SECTION 17: MOBILE FIXES
-   ============================================================
+   
    Responsive overrides for elements that used fixed desktop
    sizing (milestone roadmap image, phase circles). Only kicks
    in below 900px so desktop layout is untouched. */
