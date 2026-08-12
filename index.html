@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!--
+       SECTION 1: META & DOCUMENT HEAD
+      
+       Page title, meta tags, charset, viewport
+       Font imports and CSS link -->
+  
   <meta charset="UTF-8" />
   <title>UNLV ATLAS-1 CubeSat Mission</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,1019 +15,636 @@
     content="UNLV ATLAS-1 is a student-led 1U CubeSat mission at the University of Nevada, Las Vegas advancing space technology and STEM education."
   />
 
-  <!-- Titles in Ubuntu Mono -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap">
-
-  <style>
-    :root {
-      /* Black + maroon + red + white, no blue */
-      --bg: #050505;
-      --bg-alt: #0d0d0d;
-      --accent: #e53935;        /* bright red */
-      --accent-dark: #8b0000;   /* deep maroon */
-      --accent-soft: rgba(229, 57, 53, 0.16);
-      --text: #f9f9f9;
-      --muted: #b0b0b0;
-      --card: #111111;
-      --border: #262626;
-
-      --radius-xl: 1.25rem;
-      --radius-lg: 0.9rem;
-
-      --font-heading: "Ubuntu Mono", monospace;  /* titles */
-      --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; /* body */
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: var(--font-body);
-      background:
-        radial-gradient(circle at top, #1a0000 0, #050505 45%, #000000 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.96),
-        rgba(0, 0, 0, 0.84)
-      );
-      border-bottom: 1px solid rgba(60, 20, 20, 0.9);
-    }
-
-    .nav-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0.55rem 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-weight: 700;
-      font-family: var(--font-heading);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-size: 0.88rem;
-    }
-
-    .logo-mark {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #ffffff, var(--accent));
-      position: relative;
-      box-shadow: 0 0 20px rgba(229, 57, 53, 0.8);
-      overflow: hidden;
-    }
-
-    .logo-orbit {
-      position: absolute;
-      inset: 5px;
-      border-radius: 999px;
-      border: 1px solid rgba(40, 10, 10, 0.9);
-      border-top-color: rgba(255, 230, 230, 0.85);
-      transform: rotate(-18deg);
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.1rem;
-      margin: 0;
-      padding: 0;
-      font-size: 0.8rem;
-      font-family: var(--font-heading);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-    }
-
-    nav a {
-      padding: 0.25rem 0;
-      border-bottom: 2px solid transparent;
-    }
-
-    nav a:hover {
-      border-bottom-color: var(--accent);
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.45rem 0.95rem;
-      font-size: 0.78rem;
-      border-radius: 999px;
-      border: 1px solid rgba(229, 57, 53, 0.7);
-      background: radial-gradient(circle at top left, var(--accent), var(--accent-dark));
-      color: #ffffff;
-      font-weight: 700;
-      font-family: var(--font-heading);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.9);
-      text-decoration: none;
-    }
-
-    .btn-primary span {
-      font-size: 1.05rem;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 1.5rem 1.25rem 3rem;
-    }
-
-    /* ===== Top section: Name + description + photo ===== */
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
-      gap: 2rem;
-      align-items: center;
-      padding: 2.5rem 0 2.1rem;
-    }
-
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .hero-kicker {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.28em;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-      font-family: var(--font-heading);
-    }
-
-    .hero-title {
-      font-size: clamp(2.2rem, 4vw, 3rem);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      margin: 0 0 0.7rem;
-      font-family: var(--font-heading);
-      text-transform: uppercase;
-    }
-
-    .hero-title span {
-      color: var(--accent);
-    }
-
-    .hero-subtitle {
-      color: var(--muted);
-      max-width: 34rem;
-      font-size: 0.98rem;
-      margin-bottom: 1.6rem;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .meta-pill {
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      background: #050505;
-      border: 1px solid rgba(80, 40, 40, 0.9);
-    }
-
-    .hero-photo-wrapper {
-      max-width: 380px;
-      margin: 0 auto;
-      border-radius: 1.3rem;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.95);
-      background: #000000;
-    }
-
-    .hero-photo {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* ===== Shared section / card styles ===== */
-
-    .section {
-      margin-top: 2.75rem;
-    }
-
-    .section h2 {
-      font-size: 1.3rem;
-      margin-bottom: 0.4rem;
-      font-family: var(--font-heading);
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-    }
-
-    .section p.lead {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-top: 0;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 1.5rem;
-    }
-
-    @media (max-width: 800px) {
-      .grid-2 {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .card {
-      background: radial-gradient(circle at top left, var(--card), var(--bg-alt));
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border);
-      padding: 1.25rem 1.3rem;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.9);
-    }
-
-    .card h3 {
-      font-size: 1rem;
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-      font-family: var(--font-heading);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-    }
-
-    .card p {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.7rem;
-    }
-
-    .badge {
-      padding: 0.2rem 0.6rem;
-      font-size: 0.75rem;
-      border-radius: 999px;
-      background: #050505;
-      border: 1px solid rgba(80, 40, 40, 0.9);
-      color: var(--muted);
-    }
-
-    /* ===== Mission Timeline ===== */
-
-    .timeline-card {
-      margin-top: 1.1rem;
-    }
-
-    .timeline {
-      margin-top: 0.4rem;
-      padding: 1rem 1.1rem 0.8rem;
-      border-radius: 1rem;
-      background: radial-gradient(circle at top left, #190000, #080000);
-      border: 1px solid rgba(90, 40, 40, 0.9);
-    }
-
-    .timeline-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .timeline-header h3 {
-      margin: 0;
-    }
-
-    .timeline-header span {
-      font-size: 0.75rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-family: var(--font-heading);
-    }
-
-    .timeline-track {
-      position: relative;
-      margin-top: 0.6rem;
-      padding-top: 1.2rem;
-    }
-
-    .timeline-line {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 1.4rem;
-      height: 2px;
-      background: linear-gradient(
-        to right,
-        rgba(60, 25, 25, 0.25),
-        rgba(229, 57, 53, 0.9),
-        rgba(60, 25, 25, 0.25)
-      );
-    }
-
-    .timeline-steps {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.4rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .timeline-step {
-      flex: 1;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .timeline-dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      margin: 0 auto 0.35rem;
-      border: 2px solid rgba(200, 150, 150, 0.8);
-      background: #050505;
-      transition: all 0.2s ease;
-    }
-
-    .timeline-step.active .timeline-dot {
-      background: var(--accent);
-      border-color: #ffffff;
-      box-shadow: 0 0 18px rgba(229, 57, 53, 0.9);
-    }
-
-    .timeline-label {
-      font-size: 0.7rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-family: var(--font-heading);
-    }
-
-    .timeline-detail {
-      margin-top: 1rem;
-      padding-top: 0.8rem;
-      border-top: 1px dashed rgba(90, 40, 40, 0.9);
-      font-size: 0.88rem;
-      color: var(--muted);
-      min-height: 3rem;
-    }
-
-    .timeline-photo {
-      margin-top: 0.75rem;
-      max-width: 260px;
-      border-radius: 0.9rem;
-      overflow: hidden;
-      border: 1px solid rgba(229, 57, 53, 0.6);
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.9);
-      display: none; /* shown via JS if an image exists for the phase */
-    }
-
-    .timeline-photo img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* ===== Team photos grid ===== */
-
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.2rem;
-      margin-top: 1rem;
-    }
-
-    @media (max-width: 900px) {
-      .team-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 600px) {
-      .team-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .team-card {
-      background: radial-gradient(circle at top left, var(--card), var(--bg-alt));
-      border-radius: 1rem;
-      border: 1px solid var(--border);
-      padding: 0.9rem 0.9rem 1rem;
-      text-align: center;
-    }
-
-    .team-photo {
-      width: 90px;
-      height: 90px;
-      border-radius: 999px;
-      object-fit: cover;
-      margin-bottom: 0.6rem;
-      border: 2px solid rgba(229, 57, 53, 0.75);
-      background: #000000;
-    }
-
-    .team-name {
-      font-size: 0.95rem;
-      margin-bottom: 0.1rem;
-      font-family: var(--font-heading);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .team-role {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .team-extra {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 0.35rem;
-    }
-
-    /* ===== Tables + sponsor card ===== */
-
-    .tiers-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-      margin-top: 0.8rem;
-    }
-
-    .tiers-table th,
-    .tiers-table td {
-      border: 1px solid rgba(70, 30, 30, 0.95);
-      padding: 0.55rem 0.6rem;
-      vertical-align: top;
-    }
-
-    .tiers-table th {
-      background: rgba(15, 0, 0, 0.98);
-      text-align: left;
-    }
-
-    .tiers-table tr:nth-child(even) td {
-      background: rgba(20, 2, 2, 0.9);
-    }
-
-    .sponsor-cta {
-      padding: 1.1rem 1rem;
-      border-radius: var(--radius-lg);
-      background: radial-gradient(circle at top left, var(--accent-soft), rgba(139, 0, 0, 0.22));
-      border: 1px solid rgba(229, 57, 53, 0.55);
-      font-size: 0.9rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    footer {
-      border-top: 1px solid rgba(70, 30, 30, 0.9);
-      padding: 1.3rem 1.25rem 2rem;
-      margin-top: 2rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-      background: radial-gradient(circle at bottom, #120000, #000000);
-    }
-
-    footer div {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0.7rem;
-    }
-  </style>
+  <!-- Font preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Google Fonts: Space Grotesk (headings) and Ubuntu Mono (code) -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Ubuntu+Mono:wght@400;700&display=swap"
+  />
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
 
+<body>
+  <!--
+       SECTION 2: HEADER & NAVIGATION
+       
+       Sticky header with logo, nav links, and hamburger menu
+       EDIT: Change nav links, logo text, or menu items -->
+  
   <header>
     <div class="nav-inner">
-      <div class="logo">
-        <div class="logo-mark">
-          <div class="logo-orbit"></div>
-        </div>
-        <span>UNLV ATLAS-1</span>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#mission">Mission</a></li>
-          <li><a href="#payload">Payload</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="#sponsors">Sponsors</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+      <!-- Logo / Brand -->
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="img/UNLV_1.png" alt="UNLV ATLAS-1" style="width: 44px; height: 44px; object-fit: contain; border: 2px solid #e8112d; border-radius: 50%; padding: 0;" />
+        </span>
+        <span class="brand-text" style="display: flex; flex-direction: column; justify-content: center; margin-left: 1rem;">UNLV ATLAS-1</span>
+      </a>
+      
+      <!-- Hamburger Menu Button (mobile only) -->
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      
+      <!-- Navigation Links -->
+      <nav class="links" id="nav-links">
+        <a href="#mission">Mission</a>
+        <a href="#payload">Payload</a>
+        <a href="#mosskit">MOSSKIT</a>
+        <a href="#team">Team</a>
+        <a href="#sponsors">Sponsor</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- ===== Top section: Name + description + photo ===== -->
+    <!-- 
+         SECTION 3: HERO SECTION
+        
+         Large banner with title, subtitle, CTA buttons
+         SVG animation with ascent curve
+         Image on right side
+         EDIT: Change title, subtitle, buttons, or hero image -->
+    
     <section class="hero" id="top">
-      <div>
-        <div class="hero-kicker">Student-Led Research CubeSat Mission</div>
-        <h1 class="hero-title">
-          UNLV ATLAS-1 <span>CubeSat</span>
-        </h1>
-        <p class="hero-subtitle">
-          UNLV ATLAS-1 is an open-source research project created and fabricated by students at the University of Nevada, 
-          Las Vegas. Our mission is to demonstrate Nevada students’ ability to reach low-Earth orbit (LEO) by creating 
-          one of the first CubeSats ever developed in the state, measuring environmental data. By pursuing this project, 
-          we aim to inspire future Nevada engineers and establish the state as a recognized contributor to the
-          global space community.
-        </p>
-        <div class="hero-meta">
-          <span class="meta-pill">Affiliation: University of Nevada, Las Vegas College of Engineering</span>
-          <span class="meta-pill">Form Factor: 1U CubeSat</span>
-          <span class="meta-pill">Project Name: UNLV ATLAS-1</span>
-        </div>
-      </div>
-      <div>
-        <div class="hero-photo-wrapper">
-          <img
-            src="img/cubelol.jpeg"
-            alt="UNLV ATLAS-1 Version 1"
-            class="hero-photo"
-          />
+      <!-- Animated SVG curve (draws on page load) -->
+      <svg class="hero-curve" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true">
+        <!-- Ascent curve motif, echoing the mission's real pressure profile -->
+        <path id="ascent" d="M -20 560 C 200 545, 360 470, 500 350 S 800 130, 1220 70"
+              fill="none" stroke="#e8112d" stroke-width="2" opacity="0.55"/>
+        <path d="M -20 560 C 200 545, 360 470, 500 350 S 800 130, 1220 70"
+              fill="none" stroke="#5e0f18" stroke-width="8" opacity="0.18"/>
+      </svg>
+      
+      <div class="hero-inner">
+        <!-- Left side: text content -->
+        <div>
+          <div class="eyebrow">Student-Led Research CubeSat</div>
+          <h1 class="hero-title">
+            UNLV <span class="sat">ATLAS<span class="num">-1</span></span><br />CubeSat
+          </h1>
+          <p class="hero-sub">
+            An open-source 1U CubeSat designed and fabricated by students at the University
+            of Nevada, Las Vegas. Our goal: prove Nevada can reach low-Earth orbit, and
+            inspire the engineers who take the state there next.
+          </p>
+          
+          <!-- Pill badges -->
+          <div class="hero-meta">
+            <span class="pill"><b>1U</b> Form Factor</span>
+            <span class="pill"><b>UNLV</b> College of Engineering</span>
+            <span class="pill"><b>Near-space → Orbit</b></span>
+          </div>
+          
+          <!-- Call-to-action buttons -->
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#sponsors">Become a Sponsor <span aria-hidden="true">→</span></a>
+            <a class="btn btn-ghost" href="#mission">Explore the Mission</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== Mission Overview ===== -->
-    <section class="section" id="mission">
-      <h2>Mission Overview</h2>
-      <p class="lead">
-        UNLV ATLAS-1 combines hands-on STEM training and outreach with real-world application. Our
-        team is demonstrating end-to-end capability in Nevada: from early high-altitude balloon
-        testing to an orbital CubeSat mission.
-      </p>
+    <!-- 
+         SECTION 4: MISSION OVERVIEW
+        
+         Main mission description and interactive timeline
+         EDIT: Change mission text or timeline phases in script.js -->
+    
+    <section class="section" id="mission" style="padding-bottom: 2rem;">
+      <div class="section-inner reveal">
+        <h2 class="heading-red">A Mission With Momentum</h2>
+        <p class="lead">
+          Nevada's aerospace future starts here<br /><br />
+          UNLV ATLAS-1 is a student-led CubeSat research project building Nevada's first satellite. We have one goal: make aerospace accessible in Nevada. We hope to expand opportunities in Nevada, creating pathways for aerospace education, research, and workforce development across Nevada.
+        </p>
+        <p class="lead" style="font-size: 0.95rem; font-weight: 500; margin-top: 0.6rem;">
+          Want to help? <a href="#contact">Get involved</a> or <a href="#sponsors">become a sponsor</a>.
+        </p>
+      </div>
+    </section>
 
-      <!-- Full-width interactive timeline -->
-      <div class="card timeline-card">
-        <div class="timeline">
-          <div class="timeline-header">
-            <h3>Mission Timeline: 2 Years</h3>
-            <span>Click a phase to explore</span>
+    <!-- 
+         SECTION 5: INCREMENTAL PATH
+         
+         Build. Validate. Fly. Repeat. approach -->
+
+    <section class="section alt" style="background: #FFFFFF;">
+      <div class="section-inner reveal">
+        <h2 style="color: #000000;">Build. Validate. Fly. Repeat.</h2>
+        <p class="lead subhead-with-line" style="font-size: 0.9rem; color: #DC2626; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 1.5rem;">An Incremental Path to Orbit</p>
+        <p class="lead" style="color: var(--text); font-size: 1.05rem; background-color: #F0F2F5; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); display: block; width: 100%; box-sizing: border-box; margin: 0; max-width: none;">
+          Beginning with the MOSS kit, UNLV ATLAS-1 progresses from a ground-based satellite system to a high altitude balloon mission and ultimately to orbit. By increasing the fidelity of each system over time, this approach lowers the cost barrier to entry and lets team build CubeSat skills at an accessible level. As experience grows, teams can advance to systems with greater fidelity, cost, and complexity.
+        </p>
+
+        <!-- Image placeholders for process steps -->
+        <div class="grid-3" style="margin-top: 2rem; gap: 1.5rem;">
+          <div class="flex-col">
+            <div class="img-container">
+              <img src="img/cube1.png" alt="Process Step 1" class="img-fill" />
+            </div>
+            <p class="text-centered-sm">MOSS KIT V1</p>
           </div>
-          <div class="timeline-track">
-            <div class="timeline-line"></div>
-            <div class="timeline-steps">
-              <div class="timeline-step active" data-phase="phase0">
-                <div class="timeline-dot"></div>
-                <div class="timeline-label">Concept</div>
+          <div class="flex-col">
+            <div class="img-container">
+              <img src="img/hab.png" alt="Process Step 2" class="img-fill" />
+            </div>
+            <p class="text-centered-sm">MOSS KIT (HAB Ver.)</p>
+          </div>
+          <div class="flex-col">
+            <div class="img-container">
+              <img src="img/PROVESKit.png" alt="Process Step 3" style="width: 100%; height: 100%; object-fit: cover; object-position: center bottom; border-radius: 8px; display: block;" />
+            </div>
+            <p class="text-centered-sm">PROVES Kit Integration</p>
+            <p style="text-align: center; margin-top: 0.2rem; margin-bottom: 0; font-size: 0.7rem; color: var(--muted);">Image credit: <a href="https://docs.proveskit.com/en/latest/" target="_blank" style="color: var(--muted);">https://docs.proveskit.com/en/latest/</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 
+         SECTION 6: PROOF OF EXECUTION
+      
+         Results from March 2026 HAB Launch 1
+         Statistics and achievements -->
+    
+    <section class="section alt" id="proof">
+      <div class="section-inner reveal">
+        <div class="eyebrow">Proof of Execution</div>
+        <h2>A historic first, and a technical success</h2>
+        <p class="lead">
+          In March 2026, near Baker, California, UNLV ATLAS-1 flew Nevada's first high-altitude
+          balloon test of CubeSat components, then recovered the payload intact near Primm,
+          Nevada.
+        </p>
+      </div>
+    </section>
+
+    <!-- Statistics cards section -->
+    <section class="section" id="stats">
+      <div class="section-inner reveal">
+        <div class="grid-2" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="card"><h3 class="stat-value">53,000 ft</h3><p>Telemetry recorded and received live by the ground station.</p></div>
+          <div class="card"><h3 class="stat-value">~80,000 ft</h3><p>Estimated peak balloon altitude from extrapolated analysis.</p></div>
+          <div class="card"><h3 style="color:var(--crimson);font-size:1.6rem;">Recovered</h3><p>Payload located and retrieved near Primm, Nevada.</p></div>
+          <div class="card"><h3 class="stat-value">10 months</h3><p>From project start to making Nevada history, just the beginning.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 
+         SECTION 5B: NEXT MILESTONE
+         
+         4-phase roadmap with circles and status -->
+
+    <section class="section">
+      <div class="section-inner reveal">
+        <h2>Our next milestone starts with you</h2>
+
+        <div style="margin-top: 2rem; display: flex; gap: 3rem; align-items: flex-start;">
+          <!-- Left: Phases -->
+          <div style="flex: 1; position: relative;">
+            <!-- Connecting vertical line -->
+            <div style="position: absolute; left: 29px; top: 0; bottom: 81px; width: 2px; background: var(--crimson); opacity: 0.3; z-index: 0; pointer-events: none;"></div>
+
+            <!-- Phase 1 -->
+          <div class="flex-row-divider">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: #000000; color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; flex-shrink: 0; border: 3px solid rgba(255, 255, 255, 0.6);">1</div>
+            <div class="flex-1">
+              <p class="text-badge">Phase 1 | 2025 - EARLY 2026</p>
+              <div class="flex-row-between">
+                <h3 class="text-label">Ground Development</h3>
+                <div style="background: #1a1a1a; border: 1px solid #000000; color: white; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">COMPLETE</div>
               </div>
-              <div class="timeline-step" data-phase="phase1">
-                <div class="timeline-dot"></div>
-                <div class="timeline-label">Fabrication</div>
-              </div>
-              <div class="timeline-step" data-phase="phase2">
-                <div class="timeline-dot"></div>
-                <div class="timeline-label">Balloon Testing</div>
-              </div>
-              <div class="timeline-step" data-phase="phase3">
-                <div class="timeline-dot"></div>
-                <div class="timeline-label">Orbital Integration</div>
-              </div>
-              <div class="timeline-step" data-phase="phase4">
-                <div class="timeline-dot"></div>
-                <div class="timeline-label">Preparation & Launch</div>
-              </div>
+              <p class="text-body-sm">Create the Modular Outreach Starter Satellite (MOSS) platform. Develop software, frame, communications, structures, and payload subsystems in-house, then proceed with ground-level system testing and validation.</p>
             </div>
           </div>
-          <div class="timeline-detail" id="timeline-detail">
-            Started May 2025: During the Concept phase, the ATLAS-1 team defined—and later 
-            refined—its mission goals. Originally envisioned with a biological payload, the UNLV
-            ATLAS-1 team redefined the mission during this period, established high-level requirements, 
-            outlined the initial architecture, and validated feasibility with faculty and project partners.
-          </div>
-          <div class="timeline-photo" id="timeline-photo">
-            <!-- Optional photo for the active phase -->
-            <img src="" alt="Timeline phase image" id="biocubeidea.png" />
-          </div>
-        </div>
-      </div>
 
-      <!-- Objectives: High-Altitude Balloon & Orbital -->
-      <div class="card" style="margin-top: 1.4rem;">
-        <h3>Objectives</h3>
-        <p>
-          UNLV ATLAS-1 is structured in stages: early testing with high-altitude
-          balloon flights, followed by a full orbital CubeSat mission.
-        </p>
-        <div class="grid-2" style="margin-top: 0.8rem;">
-          <div>
-            <h4 style="margin:0 0 0.3rem; font-family:var(--font-heading); text-transform:uppercase; font-size:0.95rem; letter-spacing:0.16em;">
-              High-Altitude Balloon
-            </h4>
-            <ul style="font-size:0.9rem; color:var(--muted); padding-left:1.1rem;">
-              <li>
-                Validate key subsystems as operational, including: power, payload electronics, and telemetry
-                in a near-space environment.
-              </li>
-              <li>
-                Exercise flight-like operations procedures and ground software.
-              </li>
-              <li>
-                Collect viable environmental and payload data for comparision with orbital data at
-                end of mission. 
-              </li>
-            </ul>
+          <!-- Phase 2 -->
+          <div class="flex-row-divider">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: #1F2937; color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; flex-shrink: 0; border: 3px solid rgba(255, 255, 255, 0.6);">2</div>
+            <div class="flex-1">
+              <p class="text-badge">Phase 2 | SPRING - FALL 2026</p>
+              <div class="flex-row-between">
+                <h3 class="text-label">HAB Flight Campaign</h3>
+                <div style="background: #374151; border: 1px solid #1F2937; color: white; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">FINALIZING</div>
+              </div>
+              <p class="text-body-sm">Refine communications, downlink environmental data, improve reliability, and increase system fidelity while developing skills needed for orbital satellite development, testing, and launch.</p>
+            </div>
           </div>
-          <div>
-            <h4 style="margin:0 0 0.3rem; font-family:var(--font-heading); text-transform:uppercase; font-size:0.95rem; letter-spacing:0.16em;">
-              Orbital CubeSat
-            </h4>
-            <ul style="font-size:0.9rem; color:var(--muted); padding-left:1.1rem;">
-              <li>
-                Deploy a 1U CubeSat into Low Earth Orbit to operate the
-                student-developed payload.
-              </li>
-              <li>
-                Demonstrate end-to-end mission operations, demonstrating Nevada's ability to 
-                get into orbit! 
-              </li>
-              <li>
-                Train UNLV students across multiple disciplines in real
-                aerospace & spacecraft engineering.
-              </li>
-            </ul>
+
+          <!-- Phase 3 -->
+          <div class="flex-row-divider">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: #B82D2D; color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; flex-shrink: 0; border: 3px solid rgba(255, 255, 255, 0.6);">3</div>
+            <div class="flex-1">
+              <p class="text-badge">Phase 3 | LATE 2026 - 2027</p>
+              <div class="flex-row-between">
+                <h3 class="text-label">Orbital Preparation</h3>
+                <div style="background: #DC4444; border: 1px solid #B82D2D; color: white; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">BEGINNING</div>
+              </div>
+              <p class="text-body-sm">Transition to flight-qualified hardware, including development of the orbital payload. Complete ground-station development and satellite fabrication, then proceed with environmental testing, certification, launch-provider selection, and launch integration.</p>
+            </div>
+          </div>
+
+          <!-- Phase 4 -->
+          <div style="display: flex; gap: 2rem; align-items: flex-start; position: relative; z-index: 1;">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--crimson); color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; flex-shrink: 0; border: 3px solid rgba(255, 255, 255, 0.6);">4</div>
+            <div class="flex-1">
+              <p class="text-badge">Phase 4 | PROSPECTIVE 2027</p>
+              <div class="flex-row-between">
+                <h3 class="text-label">Orbital Mission</h3>
+                <div style="background: var(--crimson); border: 1px solid #991B1B; color: white; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">TARGET</div>
+              </div>
+              <p class="text-body-sm">Deploy in Low Earth Orbit, collect temperature and radiation data, and compare results with thermal models. Release all findings publicly as an open-source reference.</p>
+            </div>
+          </div>
+          </div>
+
+          <!-- Right: Image -->
+          <div style="flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <img src="img/launch.jpg" alt="Launch" style="width: 280px; height: 660px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);" />
+            <p style="font-size: 0.85rem; color: var(--muted); margin-top: 0.8rem; text-align: center; max-width: 280px;">March 2026 hab launch balloon in flight</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== Payload & Research ===== -->
+    <!-- 
+         SECTION 6: PAYLOAD & RESEARCH
+        
+         Orbital payload description and research areas
+         Hardware specifications
+         EDIT: Change payload description or hardware list -->
+    
     <section class="section" id="payload">
-      <h2>Payload & Research</h2>
-      <p class="lead">
-        ATLAS-1 carries a student-designed payload intended to gather data
-        relevant to space environment characterization and technology
-        demonstration, while supporting research at UNLV.
-      </p>
-      <div class="grid-2">
-        <div class="card">
-          <h3>Payload</h3>
-          <p>
-            The ATLAS-1 payload is designed to be cost-effective and easily reproducible by relying 
-            on commercial off-the-shelf (COTS) components. It collects environmental data across six 
-            key parameters—temperature, humidity, pressure, acceleration, magnetic field strength, and 
-            angular velocity. This dataset enables direct comparison between high-altitude balloon (HAB) 
-            flights and orbital operations to investigate similarities and differences in environmental 
-            behavior across the two environments. The ultimate goal of UNLV ATLAS-1 is to serve as a hands-on 
-            training platform for students across Nevada, building the knowledge and experience necessary to 
-            support more advanced space research and experimentation in the future.
-          <ul>
-            <li>Raspberry Pi 3B+</li>
-            <li>Raspberry Pi SenseHAT</li>
-            <li>Raspberry Pi Camera V2</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Research Areas</h3>
-          <p>
-            Data from ATLAS-1 will support research and student projects in
-            multiple areas:
-          </p>
-          <ul>
-            <li>Aerospace Engineering and Mission Operations</li>
-            <li>Avionics and Communications</li>
-            <li>Atmospheric and Space Environmental Charaterization</li>
-            <li>STEM Education and Open-Source Awareness</li>
-          </ul>
+      <div class="section-inner reveal">
+        <div class="eyebrow">Orbital Objective</div>
+        <h2>Our payload and research</h2>
+        <div class="grid-2" style="margin-top: 2rem;">
+          <div class="card">
+            <h3>Payload</h3>
+            <p>
+              Turn flight data into better engineering. UNLV ATLAS-1 is designed to measure temperature and radiation in Low Earth orbit. Distributed sensors will reveal thermal gradients across the structure, allowing the team to compare real conditions with analytical heat-transfer models and validate thermal performance predictions.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Research Areas</h3>
+            <p>Data from UNLV ATLAS-1 supports research and student projects across:</p>
+            <ul>
+              <li>Aerospace engineering and mission operations</li>
+              <li>Avionics and communications</li>
+              <li>Atmospheric and space environmental characterization</li>
+              <li>STEM education and open-source awareness</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== Team & Advisors ===== -->
-    <section class="section" id="team">
-      <h2>Team & Advisors</h2>
-      <p class="lead">
-        UNLV ATLAS-1 is developed by an interdisciplinary student team at the
-        University of Nevada, Las Vegas, guided by faculty and external partners.
-      </p>
+    <!-- 
+         SECTION 6B: MOSSKIT
+        
+         Open-source development kit for students
+         EDIT: Change MOSSKIT description or GitHub link -->
 
-      <div class="card">
-        <h3>Student Team</h3>
-        <p class="lead" style="margin-bottom: 0.6rem; font-size: 0.85rem;">
-          Below are some of the students leading the ATLAS-1 mission.
+    <section class="section" id="mosskit">
+      <div class="section-inner reveal">
+        <h2>Build Like Us: MOSSKIT for Students</h2>
+        <p class="lead">
+          MOSSKIT is an open-source high-altitude balloon launch kit designed for students and teams wanting to learn space systems engineering. It's the foundation of UNLV ATLAS-1's approach—starting with accessible, ground-based hardware that teaches real mission operations skills before advancing to higher-fidelity systems.
+        </p>
+        <p class="lead" style="font-size: 1rem; margin-top: 1.5rem;">
+          Whether you're building your own satellite, learning about avionics, or exploring space systems, MOSSKIT gives you the tools to get started. All hardware and software are open-source and documented for your next mission.
+        </p>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a class="btn btn-primary" href="https://github.com/UNLV-ATLAS-1/MOSSKIT" target="_blank">Explore MOSSKIT on GitHub <span aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="#contact">Get Started with Your Team</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 
+         SECTION 7: TEAM & ADVISORS
+         
+         Team member cards with photos and bios
+         Faculty advisors and industry partners
+         EDIT: Change team members or add new members
+         Note: Images path = img/[FirstName].jpg -->
+
+    <section class="section alt" id="team">
+      <div class="section-inner reveal">
+        <div class="eyebrow">Who We Are</div>
+        <h2>Meet the Team</h2>
+        <p class="lead">
+          UNLV ATLAS-1 is built by an interdisciplinary student team in the Howard R. Hughes
+          College of Engineering at UNLV, guided by faculty and external partners.
         </p>
 
-        <!--
-          To add more team members:
-          1. Copy one of the <div class="team-card"> blocks below.
-          2. Paste it inside .team-grid.
-          3. Change the image filename, name, role, and extra text.
-        -->
+        <!-- Team member grid -->
         <div class="team-grid">
           <div class="team-card">
-            <img src="img/Kylee.jpg" alt="Team member" class="team-photo" />
-            <div class="team-name">Kylee Brahma</div>
-            <div class="team-role">Project Manager & Payload Lead</div>
-            <div class="team-extra">B.S. Mechanical Engineering, UNLV</div>
+            <img src="img/Kylee.jpg" alt="Kylee Brahma" class="team-photo"
+                 onerror="this.style.background='#1d1d22';this.removeAttribute('src');" />
+            <div class="team-meta">
+              <div class="team-name">Kylee Brahma</div>
+              <div class="team-role">Project Manager &amp; Payload Lead</div>
+              <div class="team-extra">B.S. Mechanical Engineering, UNLV</div>
+            </div>
           </div>
           <div class="team-card">
-            <img src="img/Leo.jpg" alt="Team member" class="team-photo" />
-            <div class="team-name">Leandro Araiza</div>
-            <div class="team-role">Electronics & Comms Lead</div>
-            <div class="team-extra">B.S. Mechanical Engineering, UNLV</div>
+            <img src="img/Leo.jpg" alt="Leandro Araiza" class="team-photo"
+                 onerror="this.style.background='#1d1d22';this.removeAttribute('src');" />
+            <div class="team-meta">
+              <div class="team-name">Leandro Araiza</div>
+              <div class="team-role">Electronics &amp; Comms Lead</div>
+              <div class="team-extra">B.S. Mechanical Engineering, UNLV</div>
+            </div>
           </div>
           <div class="team-card">
-            <img src="img/Christian.jpg" alt="Team member" class="team-photo" />
-            <div class="team-name">Christian Ługowski</div>
-            <div class="team-role">Payload & Ground Lead</div>
-            <div class="team-extra">B.S. Mechanical Engineering, UNLV</div>
+            <img src="img/Christian.jpg" alt="Christian Ługowski" class="team-photo"
+                 onerror="this.style.background='#1d1d22';this.removeAttribute('src');" />
+            <div class="team-meta">
+              <div class="team-name">Christian Ługowski</div>
+              <div class="team-role">Payload &amp; Ground Lead</div>
+              <div class="team-extra">B.S. Mechanical Engineering, UNLV</div>
+            </div>
+          </div>
+          <div class="team-card">
+            <img src="img/TeamMember4.jpg" alt="Team Member" class="team-photo"
+                 onerror="this.style.background='#1d1d22';this.removeAttribute('src');" />
+            <div class="team-meta">
+              <div class="team-name">Team Member 4</div>
+              <div class="team-role">Role TBD</div>
+              <div class="team-extra">Coming Soon</div>
+            </div>
+          </div>
+          <div class="team-card">
+            <img src="img/TeamMember5.jpg" alt="Team Member" class="team-photo"
+                 onerror="this.style.background='#1d1d22';this.removeAttribute('src');" />
+            <div class="team-meta">
+              <div class="team-name">Team Member 5</div>
+              <div class="team-role">Role TBD</div>
+              <div class="team-extra">Coming Soon</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Advisors & Partners (optional photos) -->
-      <div class="grid-2" style="margin-top: 1.5rem;">
-        <div class="card">
-          <h3>Advisors</h3>
-          <p>
-            Faculty advisors provide technical guidance and help integrate
-            ATLAS-1 with academic programs at UNLV.
-          </p>
-          <ul>
-            <li>Dr. Matthew Pusko, Assistant Professor in Residence, Engineering, UNLV</li>
-            <li>College of Engineering, UNLV</li>
-          </ul>
-          <!-- Optional photo of advisors -->
-          <div class="timeline-photo" style="max-width:220px; margin-top:0.8rem;">
-            <img src="img/advisors.jpg" alt="Faculty advisors" />
+        <!-- Advisors and Partners -->
+        <div class="grid-2 mt-lg">
+          <div class="card">
+            <h3>Advisors</h3>
+            <p>Faculty advisors provide technical guidance and integrate UNLV ATLAS-1 with academic programs at UNLV.</p>
+            <ul>
+              <li>Dr. Matthew Pusko, Assistant Professor in Residence, Engineering, UNLV</li>
+              <li>Howard R. Hughes College of Engineering, UNLV</li>
+            </ul>
           </div>
-        </div>
-        <div class="card">
-          <h3>Partners</h3>
-          <p>
-            Industry and community partners support the mission through
-            mentorship, hardware, launch access, and sponsorship.
-          </p>
-          <ul>
-            <li>Bronco Space Lab, Bronco Space Lab</li>
-            <li>Dr. Andrew Shapiro</li>
-            <li>The Creatorspace</li>
-          </ul>
-          <!-- Optional photo of partners / lab -->
-          <div class="timeline-photo" style="max-width:220px; margin-top:0.8rem;">
-            <img src="img/partners.jpg" alt="Partners and lab facilities" />
+          <div class="card">
+            <h3>Partners</h3>
+            <p>Industry and community partners support the mission through mentorship, hardware, launch access, and sponsorship.</p>
+            <ul>
+              <li>Bronco Space Lab</li>
+              <li>Dr. Andrew Shapiro</li>
+              <li>The Creatorspace</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== Become a Sponsor ===== -->
+    <!--
+         SECTION 8: SPONSORSHIP
+        
+         Partnership levels with benefits and pricing
+         EDIT: Change tier names, prices, or benefits
+         Tiers: Platinum, Gold, Silver, Bronze, Supporter -->
+    
     <section class="section" id="sponsors">
-      <h2>Become a Sponsor</h2>
-      <p class="lead">
-        Sponsors help make ATLAS-1 possible while gaining visibility in a real
-        space mission and direct access to emerging engineering talent.
-      </p>
-      <div class="card">
-        <h3>Sponsorship Tiers</h3>
-        <table class="tiers-table">
-          <thead>
-            <tr>
-              <th>Tier</th>
-              <th>Contribution</th>
-              <th>Benefits</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Supporter</strong></td>
-              <td>$0 – $1000</td>
-              <td>
-                Individuals in the Supporter tier are acknowledged by name on our Mission Supporters page. 
-                They also recieve adigital thank-you certificate; mission newsletter and launch updates, and recieve 
-                invitations to public project presentations or livestreams.
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Bronze</strong></td>
-              <td>$1000 – $3000</td>
-              <td>
-                Bronze Sponsors receive all Supporter benefits, plus a small logo placement on our website. 
-                Bronze Sponsors also are recognized on social-media, recieve a sponsor decal or mission patch, and gain invitation to sponsor-only virtual briefings.
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Silver</strong></td>
-              <td>$3000 – $5,000</td>
-              <td>
-                All Bronze benefits; medium logo on the website and presentation materials; 
-                recognition in press releases where appropriate; invitation to HAB launches, design review, or team demonstrations.
-                Bronze sponsors also recieve a commemorative mission patch and a printed certificate.
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Gold</strong></td>
-              <td>$5,000 – $9,000</td>
-              <td>
-                All Silver benefits; prominent logo placement on the website, sponsor board, launch-event materials, and outreach displays; featured sponsor profile and dedicated social post; 
-                invitation to major milestones; framed mission certificate or CubeSat model; recognition in github repository.
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Platinum</strong></td>
-              <td>$9,000+ or major in-kind support</td>
-              <td>
-                All Gold benefits; designation as a presenting or principal sponsor; top logo placement; participation in CubeSat naming process; private executive 
-                briefing with the project team; VIP access to major mission events; prominent recognition in media materials and the permanent mission archive; recieve signed CubeSat model plaque.
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="section-inner reveal">
+        <div class="eyebrow">Partnership Levels</div>
+        <h2>Become a Sponsor</h2>
+        <p class="lead">
+          We welcome support in many forms. Sponsors contribute through monetary donations, equipment, facilities, engineering services, launch support, or a combination tailored to you.
+           <a href="https://impact.unlv.edu/campaign/782531/donate" style="color: var(--crimson); font-weight: 600;">Click here to support the mission</a>
+        </p>
 
-        <div class="sponsor-cta" style="margin-top: 1rem;">
-          <div>
-            Interested in sponsoring or partnering with UNLV ATLAS-1? We offer both
-            financial and in-kind sponsorship options and are happy to tailor
-            benefits to your goals! 
+        <!-- Sponsor tier cards -->
+        <div class="tiers">
+          <div class="tier tier--platinum">
+            <div class="tier-head">
+              <div class="tier-name">Platinum</div>
+              <div class="tier-amount">$9,000+ or any major in-kind support</div>
+            </div>
+            <div class="tier-benefits">
+              All Gold benefits; designation as a presenting or principal sponsor; top logo
+              placement; participation in the CubeSat naming process; private executive
+              briefing with the project team; VIP access to major mission events; prominent
+              recognition in media materials and the permanent mission archive; a signed
+              CubeSat model plaque.
+            </div>
           </div>
-          <a class="btn-primary" href="#contact">
-            Request Sponsor Packet <span>→</span>
-          </a>
+          <div class="tier tier--gold">
+            <div class="tier-head">
+              <div class="tier-name">Gold</div>
+              <div class="tier-amount">$5,000 – $9,000</div>
+            </div>
+            <div class="tier-benefits">
+              All Silver benefits; prominent logo placement on the website, sponsor board,
+              launch-event materials, and outreach displays; featured sponsor profile and
+              dedicated social post; invitation to major milestones; framed mission
+              certificate or CubeSat model; recognition in the GitHub repository.
+            </div>
+          </div>
+          <div class="tier tier--silver">
+            <div class="tier-head">
+              <div class="tier-name">Silver</div>
+              <div class="tier-amount">$3,000 – $5,000</div>
+            </div>
+            <div class="tier-benefits">
+              All Bronze benefits; medium logo on the website and presentation materials;
+              recognition in press releases where appropriate; invitation to HAB launches,
+              design reviews, or team demonstrations; a commemorative mission patch and a
+              printed certificate.
+            </div>
+          </div>
+          <div class="tier tier--bronze">
+            <div class="tier-head">
+              <div class="tier-name">Bronze</div>
+              <div class="tier-amount">$1,000 – $3,000</div>
+            </div>
+            <div class="tier-benefits">
+              All Supporter benefits, plus small logo placement on the website; recognition
+              on social media; a sponsor decal or mission patch; and invitations to
+              sponsor-only virtual briefings.
+            </div>
+          </div>
+          <div class="tier tier--supporter">
+            <div class="tier-head">
+              <div class="tier-name">Supporter</div>
+              <div class="tier-amount">$1 – $1,000</div>
+            </div>
+            <div class="tier-benefits">
+              Acknowledged by name on our Mission Supporters page; a digital thank-you
+              certificate; mission newsletter and launch updates; and invitations to public
+              project presentations or livestreams.
+            </div>
+          </div>
+        </div>
+
+        <!-- Sponsor CTA -->
+        <div class="sponsor-cta">
+          <div>
+            Ready to partner with us? We offer both financial
+            and in-kind options, and we tailor benefits to your goals.
+          </div>
+          <a class="btn btn-primary" href="#contact">Request Sponsor Packet <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
 
-    <!-- ===== Contact & Media ===== -->
-    <section class="section" id="contact">
-      <h2>Contact & Media</h2>
-      <p class="lead">
-        For sponsorships, technical collaborations, or media inquiries, please
-        get in touch with our team.
-      </p>
-      <div class="grid-2">
-        <div class="card">
-          <h3>Primary Contact</h3>
-          <p>
-            <strong>Kylee Brahma</strong><br />
-            UNLV ATLAS-1 CubeSat Project<br />
-            University of Nevada, Las Vegas
+    <!-- 
+         SECTION 9: MISSION SUPPORTERS
+         
+         List of individual donors and supporters -->
+
+    <section class="section alt" id="supporters" style="background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('img/workingTogether.png'); background-size: cover; background-position: center;">
+      <div class="section-inner reveal">
+        <div style="background: rgba(255, 255, 255, 0.8); padding: 1.4rem; border-radius: 8px; width: 100%;">
+          <h2 style="margin-top: 0.95rem;">Mission Supporters</h2>
+          <div style="width: 240px; height: 3px; background: #e8112d; margin: 0.8rem 0 1.5rem 0;"></div>
+          <p class="mb-md">
+            We're grateful to the individuals and organizations who believe in UNLV ATLAS-1 and make
+            this mission possible. Thank you!
           </p>
-          <p>
-            Email:
-            <a href="mailto:brahma@unlv.nevada.edu">Click Here!</a><br />
-            Phone: 725-400-1818<br />
-            Location: Las Vegas, Nevada, USA
-          </p>
-        </div>
-        <div class="card">
-          <h3>Media & Press</h3>
-          <p>
-            We welcome opportunities to share ATLAS-1 with students, the
-            community, and the broader space industry.
-          </p>
-          <ul>
-            <li>Project overviews for news articles or blogs</li>
-            <li>Talks for K–12 or university audiences</li>
-            <li>Interviews with student team members and advisors</li>
-          </ul>
+
+          <div class="mb-md">
+            <p style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--text);">Supporters:</p>
+            <ul style="list-style: none; padding: 0; margin: 0; color: var(--text); line-height: 1.8;">
+              <li>▪ Richard Smithers</li>
+              <li>▪ Jeffrey Wedding</li>
+              <li>▪ Matthew Pusko</li>
+            </ul>
+          </div>
+
+          <div style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding-top: 1.5rem;">
+            <h3 style="font-size: 1.1rem; margin: 0 0 1rem 0; color: var(--text); font-weight: 600;">Special Acknowledgement</h3>
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+              <div>
+                <p style="margin: 0; color: var(--text);">Bob Earl</p>
+                <p style="margin: 0.3rem 0 0 0; color: var(--text);">Modern Technology Solutions Inc</p>
+              </div>
+              <a href="https://www.mtsi-va.com/" target="_blank" style="margin-left: auto;"><img src="img/MTSi Logo.png" alt="Modern Technology Solutions Inc" style="height: 52px; width: auto;" /></a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== Resources ===== -->
-    <section class="section" id="resources">
-      <h2>Resources</h2>
-      <p class="lead">
-        Additional information and materials about UNLV ATLAS-1.
-      </p>
-      <div class="grid-2">
-        <div class="card">
-          <h3>Documents</h3>
-          <ul>
-            <li><a href="[Link to PDF one-pager]">Mission one-pager (PDF)</a></li>
-            <li><a href="[Link to slide deck]">Sponsor slide deck</a></li>
-            <li><a href="[Link to technical overview]">Technical overview / design summary</a></li>
-          </ul>
+    <!-- 
+         SECTION 10: CONTACT & MEDIA
+        
+         Contact information, press inquiries, links
+         EDIT: Change email, phone, or social links -->
+    
+    <section class="section alt" id="contact">
+      <div class="section-inner reveal">
+        <div class="eyebrow">Contact &amp; Media</div>
+        <h2>Get in touch.</h2>
+        <p class="lead">
+          For sponsorships, technical collaborations, or media inquiries, reach out to our team.
+        </p>
+        <!-- Contact cards -->
+        <div class="grid-2">
+          <div class="card">
+            <h3>Primary Contact</h3>
+            <p class="contact-line">
+              <strong>Kylee Brahma</strong><br />
+              UNLV ATLAS-1 CubeSat Project<br />
+              University of Nevada, Las Vegas
+            </p>
+            <p class="contact-line">
+              Email: <a href="mailto:brahma@unlv.nevada.edu">brahma@unlv.nevada.edu</a><br />
+              Phone: 725-400-1818<br />
+              Location: Las Vegas, Nevada, USA
+            </p>
+          </div>
+          <div class="card">
+            <h3>Media &amp; Press</h3>
+            <p>We welcome opportunities to share UNLV ATLAS-1 with students, the community, and the broader space industry.</p>
+            <ul>
+              <li>Project overviews for news articles or blogs</li>
+              <li>Talks for K–12 or university audiences</li>
+              <li>Interviews with student team members and advisors</li>
+            </ul>
+          </div>
         </div>
-        <div class="card">
-          <h3>Online</h3>
-          <ul>
-            <li><a href="[Social link]">Follow UNLV ATLAS-1 on social media</a></li>
-            <li><a href="https://github.com/ky-brah/UNLV-ATLAS-1">GitHub / open-source tools (if applicable)</a></li>
-            <li><a href="https://www.unlv.edu/engineering">UNLV College of Engineering</a></li>
-          </ul>
+
+        <!-- Resources and links -->
+        <div class="grid-2 mt-lg">
+          <div class="card">
+            <h3>Documents</h3>
+            <ul>
+              <li><a href="#">Mission one-pager (PDF)</a></li>
+              <li><a href="#">Sponsor slide deck</a></li>
+              <li><a href="#">Technical overview / design summary</a></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Online</h3>
+            <ul>
+              <li><a href="#">Follow UNLV ATLAS-1 on social media</a></li>
+              <li><a href="https://github.com/UNLV-ATLAS-1/MOSSKIT">GitHub / open-source tools</a></li>
+              <li><a href="https://www.unlv.edu/engineering">UNLV College of Engineering</a></li>
+            </ul>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <!--
+         SECTION 10: FINAL CALL-TO-ACTION
+         
+         Bottom banner with final pitch and link to sponsors -->
+    
+    <section class="section cta-band" style="border-bottom:0;">
+      <div class="section-inner reveal">
+        <div class="eyebrow" style="justify-content:center;">The Next Milestone Needs Partners</div>
+        <h2>Help launch the next chapter.</h2>
+        <p>
+          UNLV ATLAS-1 has proven technical momentum, student leadership, and a credible path
+          forward. Your support turns a successful near-space campaign into a flight-qualified
+          orbital mission, and keeps that capability in Nevada.
+        </p>
+        <a class="btn btn-primary" href="#contact">Partner with UNLV ATLAS-1 <span aria-hidden="true">→</span></a>
       </div>
     </section>
   </main>
 
+  <!-- 
+       SECTION 11: FOOTER
+      
+       Site footer with copyright
+       EDIT: Change copyright year or footer text -->
+  
   <footer>
-    <div>
-      <span>
-        © 2025 UNLV ATLAS-1 · University of Nevada, Las Vegas
-      </span>
-      <span>
-        Designed & built by students, with support from our sponsors and
-        partners.
-      </span>
+    <div class="footer-inner">
+      <span>© 2025 UNLV ATLAS-1 · University of Nevada, Las Vegas</span>
+      <span>Designed &amp; built by students, with support from our sponsors and partners.</span>
     </div>
   </footer>
 
-  <!-- Interactive timeline logic -->
-  <script>
-    // Text + optional images for each phase of the timeline.
-    // To use photos: put images in /img and set image: "img/filename.jpg"
-    const timelineData = {
-      phase0: {
-        text: "May 2025: During the Concept phase, the ATLAS-1 team defined—and later refined—its mission goals. Originally envisioned with a biological payload, the UNLV ATLAS-1 team redefined the mission during this period, established high-level requirements, outlined the initial architecture, and validated feasibility with faculty and project partners.",
-        image: "img/biocubeidea.png" 
-      },
-      phase1: {
-        text: "Fall 2025: With a System Concept Review (SCR) done, we began designing and fabricating components for the first version of ATLAS-1, which became fully functional by mid-October 2025. We also presented our project at the Small Satellite Education Conference during this time! ",
-        image: "img/present.jpeg"
-      },
-      phase2: {
-        text: "December 2025: With fabrication complete, some of the first HAB testing for CubeSats in Nevada will be underway to check communications and validate payload performance.",
-        image: "img/eyeseeyou.jpeg"
-      },
-      phase3: {
-        text: "Spring 2026: We plan on integrating our payload with an open-source cubesat kit whose lab we are partnered with.",
-        image: "img/Laser.jpg"
-      },
-      phase4: {
-        text: "August 2026: We plan on presenting our preliminary findings and hopefully secure a launch opportunity within the following year. We plan on making any adjustments and completing appropriate certifications, documentation, etc. to support this!",
-        image: "img/ss25.jpeg"
-      }
-    };
-
-    const steps = document.querySelectorAll(".timeline-step");
-    const detailEl = document.getElementById("timeline-detail");
-    const photoWrapper = document.getElementById("timeline-photo");
-    const photoImg = document.getElementById("timeline-photo-img");
-
-    function setPhase(phaseKey) {
-      const data = timelineData[phaseKey];
-      if (!data) return;
-
-      detailEl.textContent = data.text;
-
-      if (data.image) {
-        photoImg.src = data.image;
-        photoWrapper.style.display = "block";
-      } else {
-        photoImg.src = "";
-        photoWrapper.style.display = "none";
-      }
-    }
-
-    steps.forEach(step => {
-      step.addEventListener("click", () => {
-        const phase = step.getAttribute("data-phase");
-        steps.forEach(s => s.classList.remove("active"));
-        step.classList.add("active");
-        setPhase(phase);
-      });
-    });
-
-    // Ensure initial phase content is set (matches .active in HTML)
-    setPhase("phase0");
-  </script>
+  <!-- 
+       SECTION 12: SCRIPTS
+      
+       External JavaScript file for interactivity
+       Handles: mobile nav, timeline, scroll reveal, SVG animation -->
+  
+  <script src="script.js"></script>
 </body>
 </html>

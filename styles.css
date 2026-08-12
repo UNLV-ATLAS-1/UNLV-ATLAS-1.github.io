@@ -1,0 +1,958 @@
+/* ============================================================
+   SECTION 1: COLOR & TYPOGRAPHY VARIABLES
+   ============================================================
+   Define all colors, fonts, and spacing used throughout the site
+   EDIT COLORS HERE: Change --crimson, --text, --ink, etc. */
+
+:root {
+  /* Color Palette - Brighter, softer design */
+  --ink:        #F8F9FA;   /* page background - light gray */
+  --ink-2:      #F0F2F5;   /* alt bands - slightly darker light gray */
+  --panel:      #FFFFFF;   /* cards - white */
+  --panel-2:    #F8F9FA;   /* raised - light gray */
+  --paper:      #FFFFFF;   /* light cards - white */
+  --paper-ink:  #1F2937;   /* text on paper - dark gray */
+  --crimson:    #DC2626;   /* primary accent - softer red */
+  --crimson-lo: #991B1B;   /* darker red for hover */
+  --maroon:     #7C2D12;   /* muted maroon */
+  --gold:       #D97706;   /* warmer gold */
+  --silver:     #6B7280;   /* muted blue-gray */
+  --bronze:     #92400E;   /* soft bronze */
+
+  /* Text Colors */
+  --text:       #1F2937;   /* dark gray text */
+  --muted:      #6B7280;   /* muted gray */
+  --faint:      #9CA3AF;   /* faint gray */
+  --line:       #E5E7EB;   /* light borders */
+  --line-soft:  rgba(0,0,0,0.05);  /* subtle borders */
+
+  /* Image Overlays & Transparency */
+  --overlay-dark: rgba(0,0,0,0.3);  /* dark overlay for images */
+  --overlay-light: rgba(255,255,255,0.8);  /* light overlay for contrast */
+
+  /* Typography */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "Ubuntu Mono", ui-monospace, monospace;
+  --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Layout */
+  --wrap: 1280px;  /* max-width for content */
+  --pad: clamp(1.25rem, 4vw, 3rem);  /* responsive padding */
+}
+
+/* ============================================================
+   SECTION 2: GLOBAL STYLES
+   ============================================================
+   Base styles for all elements */
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease;
+}
+
+::selection { background: var(--crimson); color: #fff; }
+
+a { color: var(--crimson); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.05; }
+
+/* ============================================================
+   SECTION 3: EYEBROW COMPONENT
+   ============================================================
+   Red accent line with uppercase text (used in section headers) */
+
+.eyebrow {
+  display: none;
+}
+
+
+/* ============================================================
+   SECTION 4: HEADER & NAVIGATION
+   ============================================================
+   Sticky header with nav links and hamburger menu
+   EDIT: Change header background, padding, or shadow */
+
+header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.nav-inner {
+  max-width: var(--wrap); margin: 0 auto;
+  padding: 0.7rem var(--pad);
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+
+.brand { display: flex; align-items: center; gap: 0.7rem; }
+
+.brand-mark {
+  width: 40px; height: 40px; flex: none; position: relative;
+  display: grid; place-items: center;
+}
+
+.brand-mark svg { width: 100%; height: 100%; display: block; }
+
+.brand-text {
+  font-family: var(--font-mono); font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.82rem;
+}
+
+.brand-text small { color: var(--faint); font-weight: 400; }
+
+/* Navigation Links */
+nav.links { display: flex; gap: 1.6rem; }
+
+nav.links a {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.2rem 0;
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+nav.links a:hover {
+  color: var(--crimson);
+  text-decoration: none;
+}
+
+nav.links a::after {
+  content: ""; position: absolute; left: 0; bottom: -3px;
+  width: 0; height: 2px; background: var(--crimson); transition: width 0.25s ease;
+}
+
+nav.links a:hover::after { width: 100%; }
+
+.nav-toggle { display: none; }
+
+/* Mobile Navigation */
+@media (max-width: 820px) {
+  nav.links {
+    position: fixed;
+    inset: 56px 0 auto 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(248, 249, 250, 0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    padding: 0.5rem var(--pad) 1rem;
+    transform: translateY(-140%);
+    transition: transform 0.3s ease;
+  }
+  nav.links.open { transform: translateY(0); }
+  nav.links a { padding: 0.75rem 0; border-bottom: 1px solid var(--line-soft); }
+  .nav-toggle {
+    display: grid; place-items: center; gap: 5px;
+    background: none; border: 0; cursor: pointer; padding: 6px;
+  }
+  .nav-toggle span { width: 22px; height: 2px; background: var(--text); display: block; }
+}
+
+/* ============================================================
+   SECTION 5: HERO SECTION
+   ============================================================
+   Large banner at top of page with title, subtitle, buttons
+   EDIT: Change hero background, title size, or button styles */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(135deg, rgba(248, 249, 250, 0.1) 0%, rgba(240, 242, 245, 0.1) 100%),
+              url('./img/preparationHorizontalAngle.png') center / cover no-repeat;
+  background-attachment: fixed;
+  filter: brightness(1) contrast(1);
+}
+
+.hero::after {
+  content: "UNLV ATLAS-1 preparing for launch of their first high-altitude balloon in March 2026";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: right;
+  padding: 0.8rem var(--pad);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.hero-curve {
+  display: none;
+}
+
+.hero-inner {
+  max-width: var(--wrap); margin: 0 auto; position: relative; z-index: 2;
+  padding: clamp(3rem, 8vw, 6rem) var(--pad) clamp(3rem, 7vw, 5.5rem);
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+  gap: clamp(2rem, 5vw, 4rem); align-items: center;
+}
+
+/* Light grey box behind text content */
+.hero-inner > div:first-child {
+  background: rgba(240, 242, 245, 0.75);
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } }
+
+.hero-title {
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  letter-spacing: -0.02em; margin: 0 0 1.1rem; text-transform: uppercase;
+  color: #1F2937;
+}
+
+.hero-title .sat { color: var(--crimson); display: inline-block; }
+
+.hero-title .num {
+  font-family: var(--font-mono); font-weight: 700;
+  -webkit-text-stroke: 2px var(--crimson); color: transparent;
+}
+
+.hero-sub {
+  color: #4B5563; font-size: 1.02rem; max-width: 70ch; margin: 0 0 1.8rem; font-weight: 600;
+}
+
+.hero-meta { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+
+/* Pill badges */
+.pill {
+  display: none;
+}
+
+.pill b { color: #1F2937; font-weight: 700; }
+
+/* Hero CTA Section */
+.hero-cta { display: flex; gap: 0.8rem; margin-top: 2rem; flex-wrap: wrap; }
+
+/* Hero Photo */
+.hero-photo {
+  position: relative; border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--line); background: var(--panel);
+  aspect-ratio: 4 / 5; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.8);
+}
+
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.hero-photo::after {
+  content: "UNLV ATLAS-1 preparing for launch of their first high-altitude balloon in March 2026";
+  position: absolute; left: 12px; bottom: 12px;
+  font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em;
+  color: #fff; background: rgba(10,10,11,0.72);
+  border: 1px solid var(--line); padding: 0.35rem 0.6rem; border-radius: 4px;
+}
+
+.hero-photo.no-img { display: grid; place-items: center; }
+
+.hero-photo.no-img .ph {
+  font-family: var(--font-mono); color: var(--faint); font-size: 0.78rem;
+  text-align: center; padding: 2rem;
+}
+
+/* ============================================================
+   SECTION 6: BUTTONS
+   ============================================================
+   Call-to-action buttons - primary and ghost styles */
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.08em;
+  text-transform: uppercase; font-weight: 700;
+  padding: 0.8rem 1.35rem; border-radius: 4px; cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.btn:hover { text-decoration: none; transform: translateY(-2px); }
+
+.btn-primary { background: var(--crimson); color: #fff; box-shadow: 0 8px 24px rgba(232,17,45,0.28); }
+
+.btn-primary:hover { background: var(--crimson-lo); }
+
+.btn-ghost { border-color: var(--line); color: var(--text); background: transparent; }
+
+.btn-ghost:hover { border-color: var(--crimson); color: var(--crimson); }
+
+/* ============================================================
+   SECTION 7: IMAGE UTILITIES & OVERLAYS
+   ============================================================
+   Styles for images with transparency, overlays, and effects
+   USE: Add these classes to <img> or <div> elements */
+
+.img-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-dark);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.img-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.img-overlay:hover img {
+  opacity: 1;
+}
+
+/* Semi-transparent cards over images */
+.img-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 1.6rem 1.7rem;
+}
+
+/* Gradient overlay for text on images */
+.gradient-overlay {
+  position: relative;
+}
+
+.gradient-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+  pointer-events: none;
+}
+
+/* Light text on images */
+.text-on-image {
+  position: relative;
+  z-index: 2;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Image with subtle blur on scroll */
+.img-parallax {
+  position: relative;
+  will-change: transform;
+}
+
+/* Full-width image sections */
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ============================================================
+   SECTION 8: SECTIONS LAYOUT
+   ============================================================
+   Main content sections - padding, backgrounds, borders
+   EDIT: Change section padding or background colors */
+
+.section {
+  padding: clamp(3.5rem, 8vw, 6rem) 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--ink);
+}
+
+.section.alt {
+  background: #EFF6FF;
+}
+
+#team {
+  background: #FAFAFA;
+}
+
+#contact {
+  background: linear-gradient(135deg, rgba(248, 249, 250, 0.6) 0%, rgba(240, 242, 245, 0.8) 100%),
+              linear-gradient(45deg, rgba(220, 38, 38, 0.05) 0%, rgba(240, 242, 245, 0.05) 100%);
+}
+
+/* Proof section with background image */
+#proof {
+  background: linear-gradient(135deg, rgba(248, 249, 250, 0.1) 0%, rgba(240, 242, 245, 0.1) 100%),
+              url('./img/BalloonSetup.png') center / cover no-repeat !important;
+  background-attachment: fixed;
+}
+
+.section.highlight {
+  background: var(--crimson);
+  color: #FFFFFF;
+}
+
+.section.highlight .lead,
+.section.highlight p {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.section.highlight h2 {
+  color: #FFFFFF;
+}
+
+.section-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+.section h2 {
+  font-size: clamp(1.9rem, 4.5vw, 3rem);
+  margin: 0 0 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.heading-red {
+  color: var(--crimson);
+  position: relative;
+  padding-top: 1.2rem;
+}
+
+.heading-red::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 380px;
+  height: 2px;
+  background: var(--crimson);
+}
+
+.subhead-with-line {
+  position: relative;
+  padding-bottom: 0.8rem;
+}
+
+.subhead-with-line::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  height: 2px;
+  background: #DC2626;
+}
+
+.lead {
+  color: var(--muted);
+  font-size: 1.05rem;
+  max-width: 62ch;
+  margin: 0 0 2.5rem;
+}
+
+/* ============================================================
+   SECTION 9: CARDS
+   ============================================================
+   Reusable card components with hover effects */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+}
+
+@media (max-width: 760px) { .grid-2 { grid-template-columns: 1fr; } }
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.4rem;
+}
+
+.grid-3 > div {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.grid-3 [style*="aspect-ratio"] {
+  overflow: hidden;
+}
+
+@media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .grid-3 { grid-template-columns: 1fr; } }
+
+/* Connecting lines for grid-3 flow */
+@media (min-width: 901px) {
+  .grid-3 {
+    position: relative;
+  }
+
+  .grid-3 > div:nth-child(1)::after,
+  .grid-3 > div:nth-child(2)::after {
+    content: "";
+    position: absolute;
+    right: -2.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.2rem;
+    height: 4px;
+    background: var(--crimson);
+    z-index: 10;
+    border-radius: 2px;
+  }
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.2rem 1.3rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+#stats .card {
+  padding: 1rem 1.1rem;
+}
+
+#stats .card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.4rem !important;
+}
+
+#stats .card p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--crimson);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  border-color: var(--crimson);
+}
+
+.card:hover::before { opacity: 1; }
+
+.card h3 {
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.7rem;
+}
+
+.card p { color: var(--muted); margin: 0 0 0.8rem; }
+
+.card ul { color: var(--muted); padding-left: 1.1rem; margin: 0.4rem 0 0; }
+
+.card li { margin-bottom: 0.35rem; }
+
+.card li::marker { color: var(--crimson); }
+
+.subhead {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.9rem;
+  margin: 0 0 0.4rem;
+  color: var(--text);
+}
+
+/* Objectives split */
+.obj-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem;
+  margin-top: 1.2rem;
+}
+
+@media (max-width: 700px) { .obj-split { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   SECTION 11: TEAM GRID
+   ============================================================
+   Team member cards with photos and roles */
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 900px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
+
+@media (max-width: 520px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.team-card {
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.team-card:hover {
+  transform: scale(1.05);
+}
+
+.team-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  background: var(--panel-2);
+  border-radius: 50%;
+  border: 3px solid var(--crimson);
+  transition: transform 0.2s ease;
+}
+
+.team-meta {
+  padding: 0.8rem 0 0;
+  border-top: none;
+}
+
+.team-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.team-role {
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  margin-top: 0.4rem;
+  font-weight: 500;
+}
+
+.team-extra {
+  color: var(--faint);
+  font-size: 0.82rem;
+  margin-top: 0.35rem;
+}
+
+/* ============================================================
+   SECTION 12: SPONSOR TIERS
+   ============================================================
+   Sponsorship level cards with benefits */
+
+.tiers {
+  display: grid;
+  gap: 1rem;
+}
+
+.tier {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1.2rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.4rem 1.6rem;
+  align-items: start;
+  border-top: 3px solid var(--tier, var(--crimson));
+}
+
+@media (max-width: 680px) { .tier { grid-template-columns: 1fr; gap: 0.5rem; } }
+
+.tier-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--tier, var(--text));
+}
+
+.tier-amount {
+  font-family: var(--font-mono);
+  color: var(--text);
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
+}
+
+.tier-benefits {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.tier--supporter { --tier: var(--silver); }
+.tier--bronze    { --tier: var(--bronze); }
+.tier--silver    { --tier: var(--silver); }
+.tier--gold      { --tier: var(--gold); }
+.tier--platinum  { --tier: var(--crimson); }
+
+/* Sponsor CTA */
+.sponsor-cta {
+  margin-top: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  background: linear-gradient(90deg, rgba(232,17,45,0.10), transparent);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--crimson);
+  border-radius: 10px;
+  padding: 1.2rem 1.4rem;
+}
+
+.sponsor-cta div { color: var(--text); max-width: 52ch; }
+
+/* ============================================================
+   SECTION 13: CONTACT & RESOURCES
+   ============================================================
+   Contact information and resource links */
+
+.contact-line { color: var(--muted); }
+
+.contact-line strong { color: var(--text); }
+
+/* ============================================================
+   SECTION 14: FINAL CTA BAND
+   ============================================================
+   Bottom call-to-action banner */
+
+.cta-band {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.45) 100%),
+              url('./img/final.png') center / cover no-repeat;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-band::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-band .section-inner { max-width: 820px; }
+
+.cta-band h2 { font-size: clamp(2rem, 5vw, 3.2rem); color: #FFFFFF; }
+
+.cta-band p { color: #FFFFFF; margin: 0 auto 2rem; max-width: 56ch; font-weight: 600; }
+
+/* ============================================================
+   SECTION 15: FOOTER
+   ============================================================
+   Site footer with copyright and links */
+
+footer {
+  background: linear-gradient(135deg, #E5E7EB 0%, #D1D5DB 100%);
+  padding: 2.4rem var(--pad);
+  border-top: 1px solid var(--line);
+}
+
+.footer-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   SECTION 16: ANIMATIONS & EFFECTS
+   ============================================================
+   Scroll reveals, transitions, and effects */
+
+/* Reveal on scroll - fade in and slide up */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-curve { display: none; }
+  .btn:hover, .team-card:hover { transform: none; }
+}
+
+/* Accessibility: Focus states */
+:focus-visible {
+  outline: 2px solid var(--crimson);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Proof section with background image */
+#proof {
+  background: linear-gradient(135deg, #F0F2F5 0%, #E5E7EB 100%);
+  padding-bottom: clamp(8rem, 15vw, 12rem) !important;
+}
+
+/* Statistics section */
+#stats {
+  padding: 1rem 0 !important;
+}
+
+#stats .section-inner {
+  padding: 0 var(--pad);
+}
+
+#stats .grid-2 {
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 0.6rem !important;
+}
+
+@media (max-width: 1024px) {
+  #stats .grid-2 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #stats .grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+#proof .lead {
+  background: rgba(240, 242, 245, 0.85);
+  backdrop-filter: blur(4px);
+  padding: 1.2rem 1.6rem;
+  border-radius: 14px;
+  max-width: 65ch;
+  font-size: 0.95rem;
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================
+   Extracted common inline styles for reuse */
+
+.flex-col { display: flex; flex-direction: column; }
+.flex-1 { flex: 1; }
+
+.flex-row-between {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+  justify-content: space-between;
+}
+
+.text-label {
+  font-size: 1.05rem;
+  margin: 0;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.text-body-sm {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.text-badge {
+  font-size: 0.8rem;
+  color: var(--crimson);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.3rem 0;
+  font-weight: 600;
+}
+
+.text-centered-sm {
+  text-align: center;
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.flex-row-divider {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e5e7eb;
+  position: relative;
+  z-index: 1;
+}
+
+.img-container {
+  aspect-ratio: 1;
+  background: #E5E7EB;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  min-width: 0;
+}
+
+.img-fill {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.stat-value {
+  color: var(--crimson);
+  font-size: 2rem;
+}
+
+.mt-lg { margin-top: 1.4rem; }
+.mb-md { margin-bottom: 1.5rem; }
