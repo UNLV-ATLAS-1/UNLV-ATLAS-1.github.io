@@ -175,8 +175,7 @@ nav.links a:hover::after { width: 100%; }
   overflow: hidden;
   border-bottom: 1px solid var(--line);
   background: linear-gradient(135deg, rgba(248, 249, 250, 0.1) 0%, rgba(240, 242, 245, 0.1) 100%),
-              url('./img/preparationHorizontalAngle.png') center / cover no-repeat;
-  background-attachment: fixed;
+              url('./img/preparationHorizontalAngle.jpg') center / cover no-repeat;
   filter: brightness(1) contrast(1);
 }
 
