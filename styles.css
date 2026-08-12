@@ -47,18 +47,7 @@
 
 * { box-sizing: border-box; }
 
-html {
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-}
-
-/* Disable smooth scroll on Safari/WebKit (incl. all iOS browsers,
-   which are required to use WebKit) due to anchor-jump bug */
-@supports (-webkit-touch-callout: none) {
-  html { scroll-behavior: auto; }
-}
-
-section[id] { scroll-margin-top: 100px; }
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -67,6 +56,7 @@ body {
   font-family: var(--font-body);
   line-height: 1.62;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
   transition: background-color 0.3s ease;
 }
 
@@ -96,6 +86,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
 header {
   position: sticky; top: 0; z-index: 50;
   background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
@@ -159,6 +150,7 @@ nav.links a:hover::after { width: 100%; }
     flex-direction: column;
     gap: 0;
     background: rgba(248, 249, 250, 0.98);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
     padding: 0.5rem var(--pad) 1rem;
@@ -169,8 +161,7 @@ nav.links a:hover::after { width: 100%; }
   nav.links a { padding: 0.75rem 0; border-bottom: 1px solid var(--line-soft); }
   .nav-toggle {
     display: grid; place-items: center; gap: 5px;
-    background: none; border: 0; cursor: pointer; padding: 12px;
-    min-width: 44px; min-height: 44px;
+    background: none; border: 0; cursor: pointer; padding: 6px;
   }
   .nav-toggle span { width: 22px; height: 2px; background: var(--text); display: block; }
 }
@@ -186,7 +177,7 @@ nav.links a:hover::after { width: 100%; }
   overflow: hidden;
   border-bottom: 1px solid var(--line);
   background: linear-gradient(135deg, rgba(248, 249, 250, 0.1) 0%, rgba(240, 242, 245, 0.1) 100%),
-              url('./img/preparationHorizontalAngle.jpg') center / cover no-repeat;
+              url('./img/preparationHorizontalAngle.png') center / cover no-repeat;
   filter: brightness(1) contrast(1);
 }
 
@@ -222,6 +213,7 @@ nav.links a:hover::after { width: 100%; }
   background: rgba(240, 242, 245, 0.75);
   padding: 2rem 2.5rem;
   border-radius: 12px;
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
 
@@ -339,6 +331,7 @@ nav.links a:hover::after { width: 100%; }
 /* Semi-transparent cards over images */
 .img-card {
   background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 12px;
@@ -408,7 +401,7 @@ nav.links a:hover::after { width: 100%; }
 /* Proof section with background image */
 #proof {
   background: linear-gradient(135deg, rgba(248, 249, 250, 0.1) 0%, rgba(240, 242, 245, 0.1) 100%),
-              url('./img/BalloonSetup.jpg') center / cover no-repeat !important;
+              url('./img/BalloonSetup.png') center / cover no-repeat !important;
 }
 
 .section.highlight {
@@ -823,6 +816,11 @@ footer {
   transform: none;
 }
 
+/* iOS Safari fallback: ensure sections appear even if IntersectionObserver misfires */
+@supports (-webkit-touch-callout: none) {
+  .reveal { opacity: 1; transform: none; }
+}
+
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -872,6 +870,7 @@ footer {
 
 #proof .lead {
   background: rgba(240, 242, 245, 0.85);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   padding: 1.2rem 1.6rem;
   border-radius: 14px;
@@ -938,21 +937,19 @@ footer {
 }
 
 .img-container {
-  width: 100%;
-  height: auto;
-  padding-bottom: 100%;
-  position: relative;
+  aspect-ratio: 1;
   background: #E5E7EB;
   border-radius: 8px;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 0.9rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
+  min-width: 0;
 }
 
 .img-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -967,36 +964,3 @@ footer {
 
 .mt-lg { margin-top: 1.4rem; }
 .mb-md { margin-bottom: 1.5rem; }
-
-/* 
-   SECTION 17: MOBILE FIXES
-   
-   Responsive overrides for elements that used fixed desktop
-   sizing (milestone roadmap image, phase circles). Only kicks
-   in below 900px so desktop layout is untouched. */
-
-@media (max-width: 900px) {
-  .milestone-row {
-    flex-direction: column;
-    gap: 2rem !important;
-  }
-
-  .milestone-image {
-    width: 100%;
-  }
-
-  .milestone-photo {
-    width: 210px !important;
-    height: 495px !important;
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .flex-row-divider {
-    gap: 1rem !important;
-  }
-
-  .milestone-line { left: 19px !important; }
-}
-
