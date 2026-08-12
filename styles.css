@@ -47,7 +47,10 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
 
 section[id] { scroll-margin-top: 100px; }
 
@@ -58,7 +61,6 @@ body {
   font-family: var(--font-body);
   line-height: 1.62;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
   transition: background-color 0.3s ease;
 }
 
