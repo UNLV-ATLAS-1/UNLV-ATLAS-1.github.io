@@ -8,23 +8,29 @@ toggle.addEventListener("click", () => {
   toggle.setAttribute("aria-expanded", open ? "true" : "false");
 });
 links.querySelectorAll("a").forEach(a =>
-  a.addEventListener("click", (e) => {
-    const href = a.getAttribute("href");
-    const wasOpen = links.classList.contains("open");
+  a.addEventListener("click", () => {
     links.classList.remove("open");
     toggle.setAttribute("aria-expanded", "false");
-    // Closing the mobile menu animates it out via CSS transform; jumping to the
-    // anchor in the same click can race that transition on some mobile browsers
-    // and silently drop the navigation. Do it explicitly on the next frame instead.
-    if (wasOpen && href && href.startsWith("#")) {
-      const target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        requestAnimationFrame(() => target.scrollIntoView({ behavior: "smooth", block: "start" }));
-      }
-    }
   })
 );
+
+/* ---- SECTION 1B: IN-PAGE ANCHOR LINKS ----
+   Safari can silently fail to jump to an in-page #anchor when the page
+   also uses `scroll-behavior: smooth` on <html> together with a sticky
+   header - the native jump sometimes just never happens. Handle every
+   local hash link (nav, hero CTA, inline text links) explicitly instead
+   of relying on native anchor navigation. */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener("click", (e) => {
+    const href = a.getAttribute("href");
+    if (href.length < 2) return;
+    const target = document.querySelector(href);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.pushState(null, "", href);
+  });
+});
 
 /* ---- SECTION 6: REVEAL ON SCROLL ----
    Fade in elements as they scroll into view
