@@ -49,6 +49,8 @@
 
 html { scroll-behavior: smooth; }
 
+section[id] { scroll-margin-top: 72px; }
+
 body {
   margin: 0;
   background: var(--ink);
@@ -159,7 +161,8 @@ nav.links a:hover::after { width: 100%; }
   nav.links a { padding: 0.75rem 0; border-bottom: 1px solid var(--line-soft); }
   .nav-toggle {
     display: grid; place-items: center; gap: 5px;
-    background: none; border: 0; cursor: pointer; padding: 6px;
+    background: none; border: 0; cursor: pointer; padding: 12px;
+    min-width: 44px; min-height: 44px;
   }
   .nav-toggle span { width: 22px; height: 2px; background: var(--text); display: block; }
 }
@@ -397,8 +400,7 @@ nav.links a:hover::after { width: 100%; }
 /* Proof section with background image */
 #proof {
   background: linear-gradient(135deg, rgba(248, 249, 250, 0.1) 0%, rgba(240, 242, 245, 0.1) 100%),
-              url('./img/BalloonSetup.png') center / cover no-repeat !important;
-  background-attachment: fixed;
+              url('./img/BalloonSetup.jpg') center / cover no-repeat !important;
 }
 
 .section.highlight {
@@ -964,3 +966,36 @@ footer {
 
 .mt-lg { margin-top: 1.4rem; }
 .mb-md { margin-bottom: 1.5rem; }
+
+/* ============================================================
+   SECTION 17: MOBILE FIXES
+   ============================================================
+   Responsive overrides for elements that used fixed desktop
+   sizing (milestone roadmap image, phase circles). Only kicks
+   in below 900px so desktop layout is untouched. */
+
+@media (max-width: 900px) {
+  .milestone-row {
+    flex-direction: column;
+    gap: 2rem !important;
+  }
+
+  .milestone-image {
+    width: 100%;
+  }
+
+  .milestone-photo {
+    width: 210px !important;
+    height: 495px !important;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .flex-row-divider {
+    gap: 1rem !important;
+  }
+
+  .milestone-line { left: 19px !important; }
+}
+
