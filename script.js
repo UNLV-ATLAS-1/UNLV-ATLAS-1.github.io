@@ -14,37 +14,34 @@ links.querySelectorAll("a").forEach(a =>
   })
 );
 
-/* ---- SECTION 1B: IN-PAGE ANCHOR LINKS ----
-   Safari can silently fail to jump to an in-page #anchor when the page
-   also uses `scroll-behavior: smooth` on <html> together with a sticky
-   header - the native jump sometimes just never happens. Handle every
-   local hash link (nav, hero CTA, inline text links) explicitly instead
-   of relying on native anchor navigation. */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener("click", (e) => {
-    const href = a.getAttribute("href");
-    if (href.length < 2) return;
-    const target = document.querySelector(href);
-    if (!target) return;
-    e.preventDefault();
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-    history.pushState(null, "", href);
-  });
-});
-
 /* ---- SECTION 6: REVEAL ON SCROLL ----
    Fade in elements as they scroll into view
-   Change threshold value to adjust when animation triggers */
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-}, { threshold: 0.12 });
-document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+   Change threshold value to adjust when animation triggers
+   Includes fallback for iOS Safari where IntersectionObserver can misfire */
+const revealEls = document.querySelectorAll(".reveal");
 
-// Safety net: if IntersectionObserver never fires for an element (JS error,
-// browser quirk, timing issue), don't leave it permanently invisible.
-setTimeout(() => {
-  document.querySelectorAll(".reveal:not(.in)").forEach(el => el.classList.add("in"));
-}, 2000);
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px 50px 0px" });
+  revealEls.forEach(el => io.observe(el));
+
+  /* Safety net: if any .reveal element still lacks .in after 3s, force visible */
+  setTimeout(() => {
+    revealEls.forEach(el => {
+      if (!el.classList.contains("in")) {
+        el.classList.add("reveal-fallback");
+      }
+    });
+  }, 3000);
+} else {
+  revealEls.forEach(el => el.classList.add("reveal-fallback"));
+}
 
 /* ---- SECTION 7: HERO SVG ANIMATION ----
    Animates the curved line in hero section

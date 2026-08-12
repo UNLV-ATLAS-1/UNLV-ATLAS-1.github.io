@@ -86,7 +86,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
 header {
   position: sticky; top: 0; z-index: 50;
   background: rgba(255, 255, 255, 0.92);
-  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
@@ -150,7 +149,6 @@ nav.links a:hover::after { width: 100%; }
     flex-direction: column;
     gap: 0;
     background: rgba(248, 249, 250, 0.98);
-    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
     padding: 0.5rem var(--pad) 1rem;
@@ -178,6 +176,7 @@ nav.links a:hover::after { width: 100%; }
   border-bottom: 1px solid var(--line);
   background: linear-gradient(135deg, rgba(248, 249, 250, 0.1) 0%, rgba(240, 242, 245, 0.1) 100%),
               url('./img/preparationHorizontalAngle.png') center / cover no-repeat;
+  background-attachment: fixed;
   filter: brightness(1) contrast(1);
 }
 
@@ -213,7 +212,6 @@ nav.links a:hover::after { width: 100%; }
   background: rgba(240, 242, 245, 0.75);
   padding: 2rem 2.5rem;
   border-radius: 12px;
-  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
 
@@ -331,7 +329,6 @@ nav.links a:hover::after { width: 100%; }
 /* Semi-transparent cards over images */
 .img-card {
   background: rgba(255, 255, 255, 0.92);
-  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 12px;
@@ -402,6 +399,7 @@ nav.links a:hover::after { width: 100%; }
 #proof {
   background: linear-gradient(135deg, rgba(248, 249, 250, 0.1) 0%, rgba(240, 242, 245, 0.1) 100%),
               url('./img/BalloonSetup.png') center / cover no-repeat !important;
+  background-attachment: fixed;
 }
 
 .section.highlight {
@@ -816,11 +814,6 @@ footer {
   transform: none;
 }
 
-/* iOS Safari fallback: ensure sections appear even if IntersectionObserver misfires */
-@supports (-webkit-touch-callout: none) {
-  .reveal { opacity: 1; transform: none; }
-}
-
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -870,7 +863,6 @@ footer {
 
 #proof .lead {
   background: rgba(240, 242, 245, 0.85);
-  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   padding: 1.2rem 1.6rem;
   border-radius: 14px;
@@ -964,3 +956,33 @@ footer {
 
 .mt-lg { margin-top: 1.4rem; }
 .mb-md { margin-bottom: 1.5rem; }
+
+/* ============================================================
+   iOS SAFARI MOBILE FIX
+   ============================================================
+   iOS Safari does not support background-attachment: fixed and
+   can break layout/rendering for sections that follow.
+   These overrides ONLY apply on mobile-width screens. */
+
+@media (max-width: 820px) {
+  .hero,
+  #proof {
+    background-attachment: scroll !important;
+  }
+
+  /* Roadmap: stack the image below the phases instead of side-by-side */
+  .roadmap-layout {
+    flex-direction: column !important;
+  }
+  .roadmap-image img {
+    width: 100% !important;
+    max-width: 320px !important;
+    height: 400px !important;
+  }
+}
+
+/* Fallback class used by JS safety net if IntersectionObserver fails */
+.reveal.reveal-fallback {
+  opacity: 1;
+  transform: none;
+}
