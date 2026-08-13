@@ -977,7 +977,13 @@ footer {
   .roadmap-image img {
     width: 100% !important;
     max-width: 320px !important;
-    height: 400px !important;
+    height: auto !important;
+    aspect-ratio: 280 / 660;
+  }
+
+  /* Hide connecting line on mobile */
+  .roadmap-line {
+    display: none !important;
   }
 }
 
